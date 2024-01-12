@@ -1,6 +1,17 @@
 const db = require('../models');
 const Checklist = db.Checklist;
 
+exports.findAll = async (req, res) => {
+    try {
+        const data = await Checklist.findAll({ where: { id: req.params.id } });
+        res.send(data);
+    } catch (err) {
+        res.status(500).send({
+            message: err.message || 'Some error occurred while retrieving checkChecklistDatas.'
+        });
+    }
+};
+
 exports.create = (req, res) => {
     // Validate request
     if (!req.body.title) {
@@ -48,31 +59,6 @@ exports.delete = (req, res) => {
         .catch((err) => {
             res.status(500).send({
                 message: 'Could not delete checklist with id=' + id
-            });
-        });
-};
-
-// Update a Checkli tby the id in the request
-exports.update = async (req, res) => {
-    const id = req.params.id;
-
-    Checklist.update(req.body, {
-        where: { id: id }
-    })
-        .then((num) => {
-            if (num == 1) {
-                res.send({
-                    message: 'checklist was updated successfully.'
-                });
-            } else {
-                res.send({
-                    message: `Cannot update checklist with id=${id}. Maybe checklist was not found or req.body is empty!`
-                });
-            }
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message: 'Error updating checklist with id=' + id
             });
         });
 };

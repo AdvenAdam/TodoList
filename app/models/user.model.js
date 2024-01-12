@@ -1,11 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
-    const checklistItem = sequelize.define('checklistitem', {
+    const User = sequelize.define('users', {
         username: {
             type: Sequelize.STRING
         },
         password: {
-            type: Sequelize.BOOLEAN
+            type: Sequelize.STRING
         }
     });
-    return checklistItem;
+    return User;
 };

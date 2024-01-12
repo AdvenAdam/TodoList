@@ -5,7 +5,6 @@ const dbConfig = require('../../config/db.config.js');
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
     dialect: dbConfig.dialect,
-    operatorsAliases: false,
     pool: {
         max: dbConfig.pool.max,
         min: dbConfig.pool.min,
@@ -21,7 +20,7 @@ db.sequelize = sequelize;
 
 db.checklist = require('./checklist.model.js')(sequelize, Sequelize);
 db.checklistItem = require('./checklist.item.model.js')(sequelize, Sequelize);
-db.users = require('./users.model.js')(sequelize, Sequelize);
+db.user = require('./user.model.js')(sequelize, Sequelize);
 
 db.checklist.hasMany(db.checklistItem);
 
